@@ -1,0 +1,64 @@
+<main class="pa4 black-80 ">
+  <form
+    class="measure center ba pa4 br3"
+    #signInForm="ngForm"
+    (ngSubmit)="onLoginUpFormSubmit(signInForm.value)"
+  >
+    <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+      <legend class="f2 fw6 ph0 mh0">Sign In</legend>
+      <div class="mt3 red">
+        <p *ngIf="error">{{ error }}</p>
+      </div>
+      <div class="mt3">
+        <label class="db fw6 lh-copy f3" for="email">Email</label>
+        <input
+          class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 ng-touched ng-valid"
+          type="email"
+          name="email"
+          required
+          email
+          #email="ngModel"
+          ngModel
+          id="email"
+        />
+        <pre class="red mt1" *ngIf="!email.valid && email.touched">
+Enter a valid email</pre
+        >
+      </div>
+      <div class="mv3">
+        <label class="db fw6 lh-copy f3" for="password">Password</label>
+        <input minlength="4"
+          class="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 ng-untouched ng-valid"
+          type="password"
+          name="password"
+          autocomplete="on"
+          required
+          #password="ngModel"
+          ngModel
+          id="password"
+        />
+        <pre class="red mt1" *ngIf="!password.valid && password.touched">
+Enter a valid password</pre
+        >
+      </div>
+      <!-- <label class="pa0 ma0 lh-copy f6 pointer"
+        ><input type="checkbox" /> Remember me</label
+      > -->
+    </fieldset>
+    <div class="">
+      <input
+        [disabled]="!signInForm.form.valid"
+        [ngClass]="{
+          'b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib':
+            signInForm.valid
+        }"
+        type="submit"
+        value="Sign In"
+      />
+    </div>
+    <div class="lh-copy mt4 f5 w-20">
+      <a routerLink="../register" class="link dim black db">Sign Up</a>
+      <!-- <a routerLink="#0" class="link dim black db mt2">Forgot your password?</a> -->
+    </div>
+  </form>
+</main>

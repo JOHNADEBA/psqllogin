@@ -1,0 +1,35 @@
+<div class="product-detail">
+
+  <div class="pt7"></div>
+  <article class="w-75 center br3 relative flex justify-between pa5">
+    <div>
+      <h1 (click)="closeModal()" class="absolute top-1 right-2 pointer dim">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </h1>
+    </div>
+    <div class="image-cont pb2">
+      <img
+        [src]="product.image"
+        class="img w-50 br3"
+        alt="Photo of a kitten looking menacing."
+      />
+    </div>
+
+    <div class="info-cont pa3 pt0">
+      <div class="left">
+        <h1 class="red">Category: {{ product.category | titlecase }}</h1>
+        <div class="">
+          <p class="title b green f3">{{ product.title }}</p>
+        </div>
+        <div>
+          <p class="f4">
+            {{ product.description }}
+          </p>
+        </div>
+      </div>
+      <div class="right absolute right-1 bottom-1">
+        <h2 class="f3 mb0 pb0 red tr">{{ product.price | currency }}</h2>
+      </div>
+    </div>
+  </article>
+</div>

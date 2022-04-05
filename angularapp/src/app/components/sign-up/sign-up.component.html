@@ -1,0 +1,67 @@
+<p *ngIf="successSignUp" class="f2 green mt5  tc">Sign Up successful. You will be redirected to the Login page.</p>
+
+<main class="pa4 black-80 " >
+  <form class="measure center ba pa4 br3" #signUpForm="ngForm" (ngSubmit)="onSignUpFormSubmit(signUpForm.value)">
+    <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+      <div class="mt3 red">
+        <p *ngIf="error">{{error}}</p>
+      </div>
+      <legend class="f2 fw6 ph0 mh0">Sign Up</legend>
+      <div class="mt3">
+        <label class="db fw6 lh-copy f3" for="name">Name</label>
+        <input
+          class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 ng-touched ng-valid"
+          type="text"
+          name="name"
+          #name="ngModel"
+          required
+          ngModel
+          id="name"
+        />
+        <pre class="red mt1"  *ngIf="!name.valid && name.touched">Enter a valid name</pre>
+      </div>
+      <div class="mt3">
+        <label class="db fw6 lh-copy f3" for="email">Email</label>
+        <input
+          class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 ng-touched ng-valid"
+          type="email"
+          name="email"
+          email
+          required
+          #email="ngModel"
+          ngModel
+          id="email"
+        />
+        <pre class="red mt1"  *ngIf="!email.valid && email.touched">Enter a valid email</pre>
+      </div>
+      <div class="mv3">
+        <label class="db fw6 lh-copy f3" for="password">Password</label>
+        <input minlength="4"
+          class="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100 ng-untouched ng-valid"
+          type="password"
+          autocomplete="on"
+          name="password"
+          required
+          #password="ngModel"
+          ngModel
+          id="password"
+        />
+        <pre class="red mt1"  *ngIf="!password.valid && password.touched">Password must contain atleast 4 characters</pre>
+      </div>
+      <!-- <label class="pa0 ma0 lh-copy f6 pointer"
+        ><input type="checkbox" /> Remember me</label
+      > -->
+    </fieldset>
+    <div class="">
+      <input [disabled]="!signUpForm.form.valid"
+      [ngClass]="{'b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib': signUpForm.valid}"
+        type="submit"
+        value="Sign Up"
+      />
+    </div>
+    <div class="lh-copy mt4 f5 w-20">
+      <a routerLink="../signin" class=" link dim black db">Sign In</a>
+      <!-- <a routerLink="#0" class="link dim black db mt2">Forgot your password?</a> -->
+    </div>
+  </form>
+</main>

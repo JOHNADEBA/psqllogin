@@ -1,0 +1,121 @@
+<!-- <pre>{{allProducts | json}}</pre> -->
+<header class="bg-black-90 mb5 w-100 ph3 pv3 pv4-ns ph4-m ph5-l">
+  <nav class="f6 fw6 ttu tracked relative">
+    <button
+      class="ttu bg-transparent b--black-05 absolute right-0 bottom-0"
+      (click)="logout()"
+    >
+      <a
+        class="link dim white dib white hover-b--black-05 "
+        routerLink="../signin"
+        title=""
+        >signout</a
+      >
+    </button>
+  </nav>
+</header>
+
+<div class="top-overall relative">
+  <div class="cont-one flex flex-wrap align-center mr-5">
+    <div *ngIf="loading" class="tc f2 center">
+      <h1>Fetching Data...</h1>
+    </div>
+
+    <article *ngFor="let product of allProducts" class="art relative">
+      <div class="image-cont pb2">
+        <div>
+          <button (click)="addToCart(product)" class="plus tc dim">+</button>
+        </div>
+        <img
+          [src]="product.image"
+          class="img"
+          alt="Photo of a kitten looking menacing."
+        />
+      </div>
+
+      <div class="info-cont pa3 pt0">
+        <div class="left">
+          <div class="">
+            <!-- <p class="title b"><a class="dim link green" routerLink="../product/{{product.id}}"> {{ product.title }} </a> </p> -->
+            <p (click)="openDetail(product)" class="title b dim pointer green">
+              {{ product.title }}
+            </p>
+          </div>
+          <div>
+            <p class="">
+              {{
+                visibleIndex === product.id
+                  ? product.description
+                  : product.description.substring(0, 90) + "..."
+              }}<span>
+                <button
+                  class="pointer f6 br2 dim"
+                  (click)="showSubItem(product.id)"
+                >
+                  {{ visibleIndex === product.id ? "show Less" : "show More" }}
+                </button>
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="right absolute right-1 bottom-1">
+          <h2 class="f5 mb0 pb0 red tr">{{ product.price | currency }}</h2>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="art cont-two">
+    <div class="flex flex-wrap justify-around align-center header">
+      <h2 class=" ">All ITEMS ( {{ this.cartArr.length }} )</h2>
+      <h2 [ngClass]="{ 'total-color': total > 0 }" class="red">
+        TOTAL : {{ total | currency }}
+      </h2>
+    </div>
+
+    <div
+      *ngFor="let item of cartArr"
+      class="mw-100 sub-info pa3 pb0 flex justify-around align-center"
+    >
+      <div class="img-cart w-25">
+        <img
+          [src]="item.image"
+          class="img w-25"
+          alt="Photo of a kitten looking menacing."
+        />
+      </div>
+      <div class="info-cart ml3 w-75">
+        <div>
+          <p>{{ item.title }}</p>
+          <p class="mb0">{{ item.price | currency }}</p>
+
+          <div class="flex align-center mt1">
+            <button class="pointer br1" (click)="addMinus('minus', item)">
+              <i class="fa fa-minus" aria-hidden="true"></i>
+            </button>
+            <p class="ma0 pv1 ph3 tc ba">{{ item.quantity }}</p>
+            <button class="pointer br1" (click)="addMinus('plus', item)">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <!-- </div> -->
+          <!-- <div class="flex mt0 justify-between"> -->
+          <p class="green mt1 f6">Free Shipping</p>
+          <button
+            (click)="removeFromCart(item.id)"
+            class="dim cart-remove white br3 pointer"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-product-details
+  *ngIf="productLoading"
+  class="absolute top-0 w-100"
+  [product]="product"
+  (newItemEvent)="showModal()"
+></app-product-details>
